@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'; connect-src https://formsubmit.co">
 <meta name="referrer" content="no-referrer">
 <title>LIONS 2453 – Göç Başvurusu / Migration</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,7 +12,7 @@
 :root{--bg:#0a0402;--ink:#fff3dc;--mut:#d9b98a;--gold:#ffc83d;--fire:#ff6a00;--red:#c4200f;--card:rgba(24,8,3,.78);--line:rgba(255,170,60,.35);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 html{scroll-padding-top:env(safe-area-inset-top,0px);background:var(--bg)}
 *,*:before,*:after{box-sizing:inherit}
-body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 100%,#5a1a02 0%,#240a03 40%,#0a0402 80%);color:var(--ink);font:500 17px/1.5 'Rajdhani',system-ui,sans-serif;overflow-x:hidden}
+body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 100%,#5a1a02 0%,#240a03 40%,#0a0402 80%);color:var(--ink);font:500 17px/1.5 'Rajdhani','Segoe UI',system-ui,sans-serif;overflow-x:hidden}
 #fx{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
 .fire{position:fixed;left:0;right:0;bottom:-6vh;height:60vh;z-index:0;pointer-events:none;filter:blur(18px)}
 .fire i{position:absolute;bottom:0;width:34vw;height:100%;border-radius:50% 50% 0 0/80% 80% 0 0;background:radial-gradient(ellipse at 50% 100%,#ffd24a 0%,#ff7a00 35%,rgba(196,32,15,.7) 60%,transparent 75%);transform-origin:50% 100%;animation:fl 2.6s ease-in-out infinite alternate;opacity:.85}
@@ -20,15 +20,15 @@ body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 100%,#5
 @keyframes fl{0%{transform:scaleY(.8) scaleX(.95) skewX(-3deg)}100%{transform:scaleY(1.15) scaleX(1.05) skewX(3deg)}}
 main{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:16px 16px 90px}
 .lang{display:flex;justify-content:flex-end;gap:8px}
-.lang button{background:rgba(0,0,0,.5);color:var(--gold);border:1px solid var(--line);padding:6px 14px;border-radius:20px;font:700 15px 'Cinzel',serif;cursor:pointer}
+.lang button{background:rgba(0,0,0,.5);color:var(--gold);border:1px solid var(--line);padding:6px 14px;border-radius:20px;font:700 15px 'Cinzel',Georgia,'Times New Roman',serif;cursor:pointer}
 .lang button[aria-pressed=true]{background:var(--gold);color:#2a0d00}
 .hero{text-align:center;padding:6px 0 18px}
 .lion{width:min(94vw,440px);margin:0 auto;display:block;filter:drop-shadow(0 0 28px rgba(255,120,0,.85)) drop-shadow(0 0 60px rgba(255,60,0,.5));}
 @keyframes glow{to{filter:drop-shadow(0 0 40px rgba(255,170,0,1)) drop-shadow(0 0 90px rgba(255,70,0,.7))}}
-h1{margin:6px 0 0;font:900 clamp(54px,17vw,112px)/1 'Cinzel Decorative','Cinzel',serif;letter-spacing:.06em;background:linear-gradient(180deg,#fff6c9 0%,#ffc83d 40%,#ff6a00 78%,#b81d08 100%);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 30px rgba(255,120,0,.4);filter:drop-shadow(0 4px 12px rgba(255,80,0,.6))}
-.sub{font:700 clamp(15px,4vw,20px) 'Cinzel',serif;color:var(--gold);letter-spacing:.14em;margin:4px 0 0}
+h1{margin:6px 0 0;font:900 clamp(54px,17vw,112px)/1 'Cinzel Decorative','Cinzel',Georgia,'Times New Roman',serif;letter-spacing:.06em;background:linear-gradient(180deg,#fff6c9 0%,#ffc83d 40%,#ff6a00 78%,#b81d08 100%);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 30px rgba(255,120,0,.4);filter:drop-shadow(0 4px 12px rgba(255,80,0,.6))}
+.sub{font:700 clamp(15px,4vw,20px) 'Cinzel',Georgia,'Times New Roman',serif;color:var(--gold);letter-spacing:.14em;margin:4px 0 0}
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 18px;margin-top:18px;backdrop-filter:blur(6px);box-shadow:0 0 0 1px rgba(255,200,60,.08) inset,0 10px 40px rgba(0,0,0,.6),0 0 40px rgba(255,90,0,.18)}
-h2{font:700 21px 'Cinzel',serif;color:var(--gold);margin:0 0 10px}
+h2{font:700 21px 'Cinzel',Georgia,'Times New Roman',serif;color:var(--gold);margin:0 0 10px}
 .rules{margin:0;padding-left:20px;color:var(--ink)}.rules li{margin:6px 0}
 .rules b{color:var(--gold)}
 label{display:block;margin:14px 0 4px;color:var(--mut);font-size:16px}
@@ -40,7 +40,7 @@ input:focus,select:focus,button:focus-visible{outline:2px solid var(--gold);outl
 .tot{margin-top:16px;padding:12px;border:1px dashed var(--line);border-radius:8px;font-weight:600}
 .tot b{color:var(--gold);font-size:20px}.warn{color:#ff8a5c;font-size:15px;display:block;min-height:1em}
 .btns{display:flex;gap:12px;margin-top:22px}
-.btn{flex:1;border:0;border-radius:10px;padding:14px;font:700 17px 'Cinzel',serif;cursor:pointer;color:#2a0d00;background:linear-gradient(180deg,#ffe07a,#ff9b1a 60%,#ff6a00);box-shadow:0 0 22px rgba(255,120,0,.6)}
+.btn{flex:1;border:0;border-radius:10px;padding:14px;font:700 17px 'Cinzel',Georgia,'Times New Roman',serif;cursor:pointer;color:#2a0d00;background:linear-gradient(180deg,#ffe07a,#ff9b1a 60%,#ff6a00);box-shadow:0 0 22px rgba(255,120,0,.6)}
 .btn.g{background:rgba(0,0,0,.5);color:var(--gold);border:1px solid var(--line);box-shadow:none}
 .chk{display:flex;gap:10px;align-items:flex-start;margin-top:18px;color:var(--ink)}.chk input{width:22px;height:22px;margin-top:3px;accent-color:#ff8a00;flex:none}
 .err{color:#ff8a5c;margin-top:12px;font-weight:600;min-height:1em}
@@ -52,9 +52,10 @@ a.btn{display:block;text-align:center;text-decoration:none}
 @media(prefers-reduced-motion:reduce){.fire i,.lion{animation:none}}
 
 .wrap{display:grid;grid-template-columns:minmax(0,1fr)}
-.vis{position:relative;z-index:1;mix-blend-mode:lighten;aspect-ratio:1/1;max-height:82vh;width:100%;overflow:hidden}
+.vis{position:relative;z-index:1;background:#0a0402;aspect-ratio:1/1;max-height:82vh;width:100%;overflow:hidden}
 .ph{width:100%;height:100%;object-fit:cover;object-position:50% 38%;display:block;-webkit-mask-image:linear-gradient(to bottom,#000 72%,transparent);mask-image:linear-gradient(to bottom,#000 72%,transparent)}
-.ttl{position:absolute;left:0;right:0;bottom:3%;text-align:center;padding:0 12px}
+.vis:after{content:"";position:absolute;left:0;right:0;bottom:0;height:38%;background:linear-gradient(to top,rgba(196,60,10,.55),rgba(255,120,0,.15) 60%,transparent);pointer-events:none}
+.ttl{z-index:2;position:absolute;left:0;right:0;bottom:3%;text-align:center;padding:0 12px}
 .ttl h1{margin:0}
 main{max-width:none}
 @media(min-width:960px){
@@ -77,7 +78,7 @@ main{align-self:center;padding:36px clamp(20px,4vw,72px) 60px 0;max-width:720px;
 <div class="lang"><button id="btr" aria-pressed="true">TR</button><button id="ben" aria-pressed="false">EN</button></div>
 
 <section class="card">
-<h2 data-i="ft"></h2>
+<h2 data-i="ft" id="ft"></h2>
 <form id="f" novalidate autocomplete="off">
 <div class="hp"><label>Web <input id="web" tabindex="-1" autocomplete="off"></label></div>
 
@@ -106,17 +107,17 @@ main{align-self:center;padding:36px clamp(20px,4vw,72px) 60px 0;max-width:720px;
 <label for="un" data-i="uni"></label><input id="un" inputmode="numeric" maxlength="5">
 <div class="tot"><span data-i="stot"></span> <b id="st">0</b><span class="warn" id="sw"></span></div>
 <div class="err" id="err" role="alert"></div>
-<div class="btns"><button type="button" class="btn g" id="bk" data-i="prev"></button><button type="submit" class="btn" data-i="send"></button></div>
+<div class="btns"><button type="button" class="btn g" id="bk" data-i="prev"></button><button type="submit" class="btn" id="sendb" data-i="send"></button></div>
 </div>
 </form>
 
 <div id="done" hidden>
-<h2 data-i="dt"></h2>
-<p data-i="dp"></p>
+<h2 data-i="dt" id="dt"></h2>
+<p data-i="dp" id="dp"></p>
 <pre id="sum"></pre>
-<div class="btns"><a class="btn" id="ml" href="#" target="_top" rel="noopener noreferrer" data-i="mail"></a></div>
-<div class="btns"><button type="button" class="btn g" id="cp" data-i="copy"></button></div>
-<p class="hint" data-i="att"></p>
+<div class="btns" id="dbtn1"><a class="btn" id="ml" href="#" target="_top" rel="noopener noreferrer" data-i="mail"></a></div>
+<div class="btns" id="dbtn2"><button type="button" class="btn g" id="cp" data-i="copy"></button></div>
+<p class="hint" data-i="att" id="at"></p>
 </div>
 </section>
 <p class="foot">© Kingdom 2453 · LIONS</p>
@@ -127,8 +128,10 @@ main{align-self:center;padding:36px clamp(20px,4vw,72px) 60px 0;max-width:720px;
 (function(){
 "use strict";
 var TO="eren11karablt@gmail.com";
-var T={tr:{sub:"KRALLIK 2453 · GÖÇ BAŞVURUSU",rt:"Krallık Kuralları",r1:"Haftalık barbar kalesi kesmek zorunludur.",r2:"Altın kafa sayısı belirlenen sınırı aşılmayacaktır.",r3:"MGE puanı belirlenen sınırı aşılmayacaktır.",ft:"Göç Başvuru Formu",id:"Oyuncu ID",nick:"Kullanıcı adı",power:"Güç (Power)",kp:"Öldürme Puanı (Kill Points)",vip:"VIP seviyesi",bud:"Kristal bütçesi (US$)",budh:"0 – 1100 arası bir değer girin.",dkp:"Hedef minimum DKP",wa1:"Hesap sahibi WhatsApp",wa2:"Pilot WhatsApp (isteğe bağlı)",next:"İleri",prev:"Geri",shot:"Kaynak ve hız artırıcı ekran görüntülerini e-postaya eklemeniz gerekecek.",food:"Yiyecek",wood:"Odun",stone:"Taş",gold:"Altın",rtot:"Toplam kaynak (FWSG):",rlow:"Kaynağınız 12B'nin altında, bu biraz düşük.",train:"Eğitim hızlandırma (gün)",heal:"İyileştirme hızlandırma (gün)",uni:"Evrensel hızlandırma (gün)",stot:"Toplam hız artırıcı (İyileştirme + Evrensel):",slow:"Hız artırıcınız 365 günün altında, bu biraz düşük.",agree:"Krallık kurallarını okudum ve kabul ediyorum.",send:"Başvuruyu Gönder",dt:"Başvurunuz hazır",dp:"E-postayı açıp göndermeniz yeterli. Açılmazsa özeti kopyalayıp adresine iletebilirsiniz.",mail:"E-postayı Aç",copy:"Özeti Kopyala",copied:"Kopyalandı",att:"Ekran görüntülerini e-postaya eklemeyi unutmayın.",e:"Lütfen şu alanı kontrol edin: ",eagree:"Kuralları kabul etmelisiniz.",m:"M",b:"B"},
-en:{sub:"KINGDOM 2453 · MIGRATION REQUEST",rt:"Kingdom Rules",r1:"Killing a barbarian fort every week is mandatory.",r2:"Golden head count must not exceed the set limit.",r3:"MGE points must not exceed the set limit.",ft:"Immigration Request Form",id:"Player ID",nick:"Nickname",power:"Power",kp:"Kill Points",vip:"VIP level",bud:"Crystal budget (US$)",budh:"Enter a value from 0 to 1100.",dkp:"Target minimum DKP",wa1:"Owner WhatsApp",wa2:"Pilot WhatsApp (optional)",next:"Next",prev:"Previous",shot:"You will need to attach resource and speedup screenshots to the email.",food:"Food",wood:"Wood",stone:"Stone",gold:"Gold",rtot:"Resources total (FWSG):",rlow:"Your resources are under 12B, that's a bit low.",train:"Training speedups (days)",heal:"Healing speedups (days)",uni:"Universal speedups (days)",stot:"Speedups total (Healing + Universal):",slow:"Your speedups are under 365 days, that's a bit low.",agree:"I have read and accept the kingdom rules.",send:"Submit Request",dt:"Your request is ready",dp:"Just open the email and send it. If it does not open, copy the summary and send it to the address.",mail:"Open Email",copy:"Copy Summary",copied:"Copied",att:"Remember to attach your screenshots to the email.",e:"Please check this field: ",eagree:"You must accept the rules.",m:"M",b:"B"}};
+var T={tr:{sub:"KRALLIK 2453 · GÖÇ BAŞVURUSU",rt:"Krallık Kuralları",r1:"Haftalık barbar kalesi kesmek zorunludur.",r2:"Altın kafa sayısı belirlenen sınırı aşılmayacaktır.",r3:"MGE puanı belirlenen sınırı aşılmayacaktır.",ft:"Göç Başvuru Formu",id:"Oyuncu ID",nick:"Kullanıcı adı",power:"Güç (Power)",kp:"Öldürme Puanı (Kill Points)",vip:"VIP seviyesi",bud:"Kristal bütçesi (US$)",budh:"0 – 1100 arası bir değer girin.",dkp:"Hedef minimum DKP",wa1:"Hesap sahibi WhatsApp",wa2:"Pilot WhatsApp (isteğe bağlı)",next:"İleri",prev:"Geri",shot:"Kaynak ve hız artırıcı ekran görüntülerinizi hazır tutun, istenirse WhatsApp'tan iletmeniz gerekecek.",food:"Yiyecek",wood:"Odun",stone:"Taş",gold:"Altın",rtot:"Toplam kaynak (FWSG):",rlow:"Kaynağınız 12B'nin altında, bu biraz düşük.",train:"Eğitim hızlandırma (gün)",heal:"İyileştirme hızlandırma (gün)",uni:"Evrensel hızlandırma (gün)",stot:"Toplam hız artırıcı (İyileştirme + Evrensel):",slow:"Hız artırıcınız 365 günün altında, bu biraz düşük.",agree:"Krallık kurallarını okudum ve kabul ediyorum.",send:"Başvuruyu Gönder",dt:"Başvurunuz hazır",dp:"E-postayı açıp göndermeniz yeterli. Açılmazsa özeti kopyalayıp adresine iletebilirsiniz.",mail:"E-postayı Aç",copy:"Özeti Kopyala",copied:"Kopyalandı",att:"Ekran görüntülerini e-postaya eklemeyi unutmayın.",e:"Lütfen şu alanı kontrol edin: ",eagree:"Kuralları kabul etmelisiniz.",m:"M",b:"B"},
+en:{sub:"KINGDOM 2453 · MIGRATION REQUEST",rt:"Kingdom Rules",r1:"Killing a barbarian fort every week is mandatory.",r2:"Golden head count must not exceed the set limit.",r3:"MGE points must not exceed the set limit.",ft:"Immigration Request Form",id:"Player ID",nick:"Nickname",power:"Power",kp:"Kill Points",vip:"VIP level",bud:"Crystal budget (US$)",budh:"Enter a value from 0 to 1100.",dkp:"Target minimum DKP",wa1:"Owner WhatsApp",wa2:"Pilot WhatsApp (optional)",next:"Next",prev:"Previous",shot:"Keep your resource and speedup screenshots ready; you may be asked to send them via WhatsApp.",food:"Food",wood:"Wood",stone:"Stone",gold:"Gold",rtot:"Resources total (FWSG):",rlow:"Your resources are under 12B, that's a bit low.",train:"Training speedups (days)",heal:"Healing speedups (days)",uni:"Universal speedups (days)",stot:"Speedups total (Healing + Universal):",slow:"Your speedups are under 365 days, that's a bit low.",agree:"I have read and accept the kingdom rules.",send:"Submit Request",dt:"Your request is ready",dp:"Just open the email and send it. If it does not open, copy the summary and send it to the address.",mail:"Open Email",copy:"Copy Summary",copied:"Copied",att:"Remember to attach your screenshots to the email.",e:"Please check this field: ",eagree:"You must accept the rules.",m:"M",b:"B"}};
+T.tr.sending="Gönderiliyor…";T.tr.sent="Başvurunuz gönderildi";T.tr.sentp="Başvurunuz krallık yetkililerine ulaştı. Ekran görüntülerinizi hazır tutun, istenirse WhatsApp'tan iletebilirsiniz.";T.tr.fail="Başvuru otomatik gönderilemedi";T.tr.failp="Bağlantı sorunu oldu. E-postayı açıp gönderin ya da özeti kopyalayıp adrese iletin.";
+T.en.sending="Sending…";T.en.sent="Your request was sent";T.en.sentp="Your request reached the kingdom officers. Keep your screenshots ready; you can send them via WhatsApp if asked.";T.en.fail="Could not send automatically";T.en.failp="There was a connection problem. Open the email and send it, or copy the summary and send it to the address.";
 var L="tr",$=function(i){return document.getElementById(i)};
 function tx(){document.documentElement.lang=L;document.querySelectorAll("[data-i]").forEach(function(e){e.textContent=T[L][e.getAttribute("data-i")]||""});
 ["btr","ben"].forEach(function(b){$(b).setAttribute("aria-pressed",String(b==="b"+L))});calc()}
@@ -166,7 +169,14 @@ RK.forEach(function(k){lines.push(k[0].toUpperCase()+k.slice(1)+": "+(n(k)||0)+"
 lines.push("Resources total: "+$("rt").textContent+" B","Training days: "+n("tr"),"Healing days: "+n("he"),"Universal days: "+n("un"),"Speedups total: "+$("st").textContent+" days","","(Attach resource + speedup screenshots)");
 var body=lines.join("\n");$("sum").textContent=body;
 $("ml").href="mailto:"+TO+"?subject="+encodeURIComponent("LIONS 2453 Migration – "+g("nick")+" ("+g("pid")+")")+"&body="+encodeURIComponent(body);
-$("f").hidden=true;$("done").hidden=false;window.scrollTo({top:0,behavior:"smooth"})});
+var pl={_subject:"LIONS 2453 Migration – "+g("nick")+" ("+g("pid")+")",_template:"table",_captcha:"false",Nickname:g("nick"),ID:g("pid"),Power:g("power"),KillPoints:g("kp"),VIP:g("vip"),CrystalBudgetUSD:g("budget"),TargetMinDKP:g("dkp"),OwnerWhatsApp:g("wa1"),PilotWhatsApp:g("wa2")||"-",ResourcesTotalB:$("rt").textContent,TrainingDays:n("tr"),HealingDays:n("he"),UniversalDays:n("un"),SpeedupsTotalDays:$("st").textContent};
+RK.forEach(function(k){pl[k[0].toUpperCase()+k.slice(1)]=(n(k)||0)+" "+$(k+"u").value});
+var sb=$("sendb");sb.disabled=true;sb.textContent=T[L].sending;
+function fin(ok){sb.disabled=false;sb.textContent=T[L].send;$("f").hidden=true;$("ft").hidden=true;$("done").hidden=false;
+$("dt").setAttribute("data-i",ok?"sent":"fail");$("dp").setAttribute("data-i",ok?"sentp":"failp");
+["sum","dbtn1","dbtn2","at"].forEach(function(i){$(i).hidden=ok});tx();window.scrollTo({top:0,behavior:"smooth"})}
+var ac=new AbortController(),tm=setTimeout(function(){ac.abort()},15000);
+fetch("https://formsubmit.co/ajax/"+TO,{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(pl),signal:ac.signal}).then(function(r){return r.json()}).then(function(j){clearTimeout(tm);fin(!!j&&(j.success===true||j.success==="true"))}).catch(function(){clearTimeout(tm);fin(false)})});
 $("cp").onclick=function(){var t=$("sum").textContent,done=function(){$("cp").textContent=T[L].copied};
 try{navigator.clipboard.writeText(t).then(done,fb)}catch(e){fb()}
 function fb(){var a=document.createElement("textarea");a.value=t;document.body.appendChild(a);a.select();try{document.execCommand("copy");done()}catch(e){}a.remove()}};
