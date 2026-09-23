@@ -170,14 +170,13 @@ RK.forEach(function(k){lines.push(k[0].toUpperCase()+k.slice(1)+": "+(n(k)||0)+"
 lines.push("Resources total: "+$("rt").textContent+" B","Training days: "+n("tr"),"Healing days: "+n("he"),"Universal days: "+n("un"),"Speedups total: "+$("st").textContent+" days","","(Attach resource + speedup screenshots)");
 var body=lines.join("\n");$("sum").textContent=body;
 $("ml").href="mailto:"+TO+"?subject="+encodeURIComponent("LIONS 2453 Migration – "+g("nick")+" ("+g("pid")+")")+"&body="+encodeURIComponent(body);
-var pl={_subject:"LIONS 2453 Migration – "+g("nick")+" ("+g("pid")+")",_template:"table",_captcha:"false",Nickname:g("nick"),ID:g("pid"),Power:g("power"),KillPoints:g("kp"),VIP:g("vip"),CrystalBudgetUSD:g("budget"),TargetMinDKP:g("dkp"),OwnerWhatsApp:g("wa1"),PilotWhatsApp:g("wa2")||"-",ResourcesTotalB:$("rt").textContent,TrainingDays:n("tr"),HealingDays:n("he"),UniversalDays:n("un"),SpeedupsTotalDays:$("st").textContent};
-RK.forEach(function(k){pl[k[0].toUpperCase()+k.slice(1)]=(n(k)||0)+" "+$(k+"u").value});
-var sb=$("sendb");sb.disabled=true;sb.textContent=T[L].sending;
-function fin(ok,why){sb.disabled=false;sb.textContent=T[L].send;$("f").hidden=true;$("ft").hidden=true;$("done").hidden=false;
-$("dt").setAttribute("data-i",ok?"sent":"fail");$("dp").setAttribute("data-i",ok?"sentp":"failp");
-["sum","dbtn1","dbtn2","at"].forEach(function(i){$(i).hidden=ok});tx();$("why").textContent=ok?"":(why?"("+why+")":"");window.scrollTo({top:0,behavior:"smooth"})}
-var ac=new AbortController(),tm=setTimeout(function(){ac.abort()},15000);
-fetch("https://formsubmit.co/ajax/"+TO,{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(pl),signal:ac.signal}).then(function(r){return r.text().then(function(t){var j=null;try{j=JSON.parse(t)}catch(e){}return{s:r.status,j:j,t:t}})}).then(function(o){clearTimeout(tm);var ok=!!(o.j&&(o.j.success===true||o.j.success==="true"));fin(ok,ok?"":"HTTP "+o.s+" "+String((o.j&&o.j.message)||o.t).replace(/<[^>]*>/g," ").slice(0,140))}).catch(function(e){clearTimeout(tm);fin(false,String(e&&e.name||e)+" "+String(e&&e.message||"").slice(0,80))})});
+var ts=new Date().toISOString(),g2=g,lines=["=== LIONS 2453 – MIGRATION REQUEST ===",ts,"ID: "+g2("pid"),"Nickname: "+g2("nick"),"Power: "+g2("power"),"Kill Points: "+g2("kp"),"VIP: "+g2("vip"),"Crystal budget (US$): "+g2("budget"),"Target min DKP: "+g2("dkp"),"Owner WhatsApp: "+g2("wa1"),"Pilot WhatsApp: "+(g2("wa2")||"-"),""];
+RK.forEach(function(k){lines.push(k[0].toUpperCase()+k.slice(1)+": "+(n(k)||0)+" "+$(k+"u").value)});
+lines.push("Resources total: "+$("rt").textContent+" B","Training days: "+n("tr"),"Healing days: "+n("he"),"Universal days: "+n("un"),"Speedups total: "+$("st").textContent+" days","","(Send screenshots to owner WhatsApp)");
+var body=lines.join("\n");$("sum").textContent=body;
+$("ml").href="mailto:"+TO+"?subject="+encodeURIComponent("LIONS 2453 Migration – "+g2("nick")+" ("+g2("pid")+")")+"&body="+encodeURIComponent(body);
+try{localStorage.setItem("app_"+ts,[g2("pid"),g2("nick"),ts].join("|"));var ok=true}catch(e){var ok=false}
+$("f").hidden=true;$("ft").hidden=true;$("done").hidden=false;$("dt").setAttribute("data-i","sent");$("dp").setAttribute("data-i","sentp");["sum","dbtn1","dbtn2","at"].forEach(function(i){$(i).hidden=false});$("why").textContent="";tx();window.scrollTo({top:0,behavior:"smooth"})});
 $("cp").onclick=function(){var t=$("sum").textContent,done=function(){$("cp").textContent=T[L].copied};
 try{navigator.clipboard.writeText(t).then(done,fb)}catch(e){fb()}
 function fb(){var a=document.createElement("textarea");a.value=t;document.body.appendChild(a);a.select();try{document.execCommand("copy");done()}catch(e){}a.remove()}};
