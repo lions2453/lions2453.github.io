@@ -118,6 +118,7 @@ main{align-self:center;padding:36px clamp(20px,4vw,72px) 60px 0;max-width:720px;
 <div class="btns" id="dbtn1"><a class="btn" id="ml" href="#" target="_top" rel="noopener noreferrer" data-i="mail"></a></div>
 <div class="btns" id="dbtn2"><button type="button" class="btn g" id="cp" data-i="copy"></button></div>
 <p class="hint" data-i="att" id="at"></p>
+<p class="hint" id="why"></p>
 </div>
 </section>
 <p class="foot">© Kingdom 2453 · LIONS</p>
@@ -172,11 +173,11 @@ $("ml").href="mailto:"+TO+"?subject="+encodeURIComponent("LIONS 2453 Migration �
 var pl={_subject:"LIONS 2453 Migration – "+g("nick")+" ("+g("pid")+")",_template:"table",_captcha:"false",Nickname:g("nick"),ID:g("pid"),Power:g("power"),KillPoints:g("kp"),VIP:g("vip"),CrystalBudgetUSD:g("budget"),TargetMinDKP:g("dkp"),OwnerWhatsApp:g("wa1"),PilotWhatsApp:g("wa2")||"-",ResourcesTotalB:$("rt").textContent,TrainingDays:n("tr"),HealingDays:n("he"),UniversalDays:n("un"),SpeedupsTotalDays:$("st").textContent};
 RK.forEach(function(k){pl[k[0].toUpperCase()+k.slice(1)]=(n(k)||0)+" "+$(k+"u").value});
 var sb=$("sendb");sb.disabled=true;sb.textContent=T[L].sending;
-function fin(ok){sb.disabled=false;sb.textContent=T[L].send;$("f").hidden=true;$("ft").hidden=true;$("done").hidden=false;
+function fin(ok,why){sb.disabled=false;sb.textContent=T[L].send;$("f").hidden=true;$("ft").hidden=true;$("done").hidden=false;
 $("dt").setAttribute("data-i",ok?"sent":"fail");$("dp").setAttribute("data-i",ok?"sentp":"failp");
-["sum","dbtn1","dbtn2","at"].forEach(function(i){$(i).hidden=ok});tx();window.scrollTo({top:0,behavior:"smooth"})}
+["sum","dbtn1","dbtn2","at"].forEach(function(i){$(i).hidden=ok});tx();$("why").textContent=ok?"":(why?"("+why+")":"");window.scrollTo({top:0,behavior:"smooth"})}
 var ac=new AbortController(),tm=setTimeout(function(){ac.abort()},15000);
-fetch("https://formsubmit.co/ajax/"+TO,{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(pl),signal:ac.signal}).then(function(r){return r.json()}).then(function(j){clearTimeout(tm);fin(!!j&&(j.success===true||j.success==="true"))}).catch(function(){clearTimeout(tm);fin(false)})});
+fetch("https://formsubmit.co/ajax/"+TO,{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(pl),signal:ac.signal}).then(function(r){return r.text().then(function(t){var j=null;try{j=JSON.parse(t)}catch(e){}return{s:r.status,j:j,t:t}})}).then(function(o){clearTimeout(tm);var ok=!!(o.j&&(o.j.success===true||o.j.success==="true"));fin(ok,ok?"":"HTTP "+o.s+" "+String((o.j&&o.j.message)||o.t).replace(/<[^>]*>/g," ").slice(0,140))}).catch(function(e){clearTimeout(tm);fin(false,String(e&&e.name||e)+" "+String(e&&e.message||"").slice(0,80))})});
 $("cp").onclick=function(){var t=$("sum").textContent,done=function(){$("cp").textContent=T[L].copied};
 try{navigator.clipboard.writeText(t).then(done,fb)}catch(e){fb()}
 function fb(){var a=document.createElement("textarea");a.value=t;document.body.appendChild(a);a.select();try{document.execCommand("copy");done()}catch(e){}a.remove()}};
