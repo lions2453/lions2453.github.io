@@ -30,6 +30,7 @@ table{font-size:12px}
 th,td{padding:8px}
 }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 <div class="login" id="login">
@@ -58,7 +59,7 @@ th,td{padding:8px}
 </div>
 
 <script>
-var PASS="2453admin";
+var PASS="admin123";
 function login(){
 var p=document.getElementById("pass").value;
 if(p!==PASS){alert("Şifre yanlış");return}
@@ -71,16 +72,13 @@ document.getElementById("login").style.display="none";
 document.getElementById("panel").style.display="block";
 refresh()}
 function refresh(){
-var apps=[],i;
-for(i in localStorage){
-if(i.startsWith("app_")){
-try{
-var d=localStorage[i],p=d.split("\n"),app={ts:i.slice(4),id:"",nick:"",power:"",kp:"",vip:""};
-p.forEach(function(l){
-if(l.includes(": ")){var kv=l.split(": ");app[kv[0]]=kv[1]}
+var sb=supabase.createClient("https://wxhzhxvczttgxqgmmtln.supabase.co","sb_publishable_Mv8LPVt5VAQIE6QL2WyBeQ_fpk2I4JA");
+sb.from("apps").select("*").order("created_at",{ascending:false}).then(function({data,error}){
+if(error){alert("Veri çekme hatası");return}
+var apps=[];
+data.forEach(function(r){
+apps.push({ts:r.created_at,id:r.pid,nick:r.nickname,power:r.power,kp:r.kp,vip:r.vip})
 });
-apps.push(app)}catch(e){}}}
-apps.sort(function(a,b){return b.ts.localeCompare(a.ts)});
 var tb=document.getElementById("tbody");tb.innerHTML="";
 if(apps.length){
 document.getElementById("table").style.display="table";
@@ -115,14 +113,7 @@ apps.forEach(function(app){
 csv+='"'+new Date(app.ts).toLocaleString()+'","'+app.id+'","'+app.nick+'","'+app.power+'","'+app.kp+'","'+app.vip+'"\n'});
 dl("lions2453-apps.csv","text/csv",csv)}
 function exportJSON(){
-var data=[],i;
-for(i in localStorage){
-if(i.startsWith("app_")){
-try{
-var d=localStorage[i],p=d.split("\n"),app={timestamp:i.slice(4)};
-p.forEach(function(l){
-if(l.includes(": ")){var kv=l.split(": ");app[kv[0].toLowerCase().replace(/ /g,"_")]=kv[1]}});
-data.push(app)}catch(e){}}}
+var data=[];
 data.sort(function(a,b){return b.timestamp.localeCompare(a.timestamp)});
 dl("lions2453-apps.json","application/json",JSON.stringify(data,null,2))}
 function dl(name,type,content){
