@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LIONS 2453 – Yönetici Paneli</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Rajdhani:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0402;--ink:#fff3dc;--gold:#ffc83d;--line:rgba(255,170,60,.35)}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:'Rajdhani',system-ui,sans-serif;min-height:100vh}
+.login{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:20px}
+.login h1{font:700 48px 'Cinzel',serif;margin:0 0 40px;text-align:center}
+.login input{width:100%;max-width:320px;padding:12px;background:rgba(0,0,0,.5);border:1px solid var(--line);color:var(--ink);font:600 16px 'Rajdhani',sans-serif;border-radius:8px;margin:10px 0}
+.login button{width:100%;max-width:320px;padding:12px;background:linear-gradient(180deg,#ffe07a,#ff6a00);color:#2a0d00;border:0;border-radius:8px;font:700 16px 'Cinzel',serif;cursor:pointer}
+.panel{display:none;padding:20px;max-width:1200px;margin:0 auto}
+.panel h1{font:700 36px 'Cinzel',serif;margin:0 0 20px}
+.panel .top{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+.panel button{padding:10px 16px;background:#ff6a00;color:#fff;border:0;border-radius:6px;cursor:pointer;font:600 14px 'Rajdhani',sans-serif}
+.panel button:hover{background:#ff7a00}
+.panel button.logout{background:#c4200f}
+.panel button.logout:hover{background:#e82810}
+table{width:100%;border-collapse:collapse;background:rgba(0,0,0,.6);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+th,td{padding:12px;text-align:left;border-bottom:1px solid var(--line);font-size:14px}
+th{background:rgba(255,120,0,.2);font-weight:700;color:var(--gold)}
+tr:hover{background:rgba(255,120,0,.05)}
+.count{font-size:18px;color:var(--gold);font-weight:600;margin:0 0 20px}
+.err{color:#ff8a5c;padding:10px;background:rgba(196,32,15,.2);border-radius:6px;margin:10px 0}
+@media(max-width:768px){
+table{font-size:12px}
+th,td{padding:8px}
+}
+</style>
+</head>
+<body>
+<div class="login" id="login">
+<h1>LIONS 2453</h1>
+<p style="margin:0 0 20px;text-align:center;color:var(--mut)">Yönetici Paneli</p>
+<input type="password" id="pass" placeholder="Şifre" onkeypress="if(event.key==='Enter')login()">
+<button onclick="login()">Giriş</button>
+<p style="font-size:12px;color:var(--mut);margin-top:20px">Başvuruları yönetmek için şifrenizi girin.</p>
+</div>
+
+<div class="panel" id="panel">
+<h1>Başvurular</h1>
+<div class="top">
+<button onclick="exportCSV()">CSV İndir</button>
+<button onclick="exportJSON()">JSON İndir</button>
+<button onclick="refresh()">Yenile</button>
+<button class="logout" onclick="logout()">Çıkış</button>
+</div>
+<div id="msg"></div>
+<div class="count" id="count"></div>
+<table id="table" style="display:none">
+<thead><tr><th>Tarih</th><th>ID</th><th>Nickname</th><th>Power</th><th>Kill Points</th><th>VIP</th><th>İşlem</th></tr></thead>
+<tbody id="tbody"></tbody>
+</table>
+<div id="empty" style="text-align:center;color:var(--mut);padding:40px">Henüz başvuru yok.</div>
+</div>
+
+<script>
+var PASS="admin123";
+function login(){
+var p=document.getElementById("pass").value;
+if(p!==PASS){alert("Şifre yanlış");return}
+sessionStorage.setItem("lions_admin_logged","1");
+show()}
+function logout(){sessionStorage.removeItem("lions_admin_logged");location.reload()}
+function show(){
+if(!sessionStorage.getItem("lions_admin_logged")){return}
+document.getElementById("login").style.display="none";
+document.getElementById("panel").style.display="block";
+refresh()}
+function refresh(){
+var apps=[],i;
+for(i in localStorage){
+if(i.startsWith("app_")){
+try{
+var d=localStorage[i],p=d.split("\n"),app={ts:i.slice(4),id:"",nick:"",power:"",kp:"",vip:""};
+p.forEach(function(l){
+if(l.includes(": ")){var kv=l.split(": ");app[kv[0]]=kv[1]}
+});
+apps.push(app)}catch(e){}}}
+apps.sort(function(a,b){return b.ts.localeCompare(a.ts)});
+var tb=document.getElementById("tbody");tb.innerHTML="";
+if(apps.length){
+document.getElementById("table").style.display="table";
+document.getElementById("empty").style.display="none";
+apps.forEach(function(app,i){
+var tr=document.createElement("tr");
+tr.innerHTML="<td>"+new Date(app.ts).toLocaleString()+"</td><td>"+app.id+"</td><td>"+app.nick+"</td><td>"+app.power+"</td><td>"+app.kp+"</td><td>"+app.vip+"</td><td><button style='padding:6px 10px;font-size:12px' onclick='delApp(\""+i+"\")'>Sil</button></td>";
+tb.appendChild(tr)})
+}else{
+document.getElementById("table").style.display="none";
+document.getElementById("empty").style.display="block"}
+document.getElementById("count").textContent="Toplam: "+apps.length}
+function delApp(i){
+if(!confirm("Silmek istediğinizden emin misiniz?"))return;
+var apps=[],cnt=0;
+for(var k in localStorage){
+if(k.startsWith("app_")){
+apps.push({k:k});cnt++}}
+apps.sort(function(a,b){return b.k.localeCompare(a.k)});
+if(apps[i]){localStorage.removeItem(apps[i].k);refresh()}}
+function exportCSV(){
+var csv="Tarih,ID,Nickname,Power,Kill Points,VIP\n",apps=[],i;
+for(i in localStorage){
+if(i.startsWith("app_")){
+try{
+var d=localStorage[i],p=d.split("\n"),app={ts:i.slice(4),id:"",nick:"",power:"",kp:"",vip:""};
+p.forEach(function(l){
+if(l.includes(": ")){var kv=l.split(": ");app[kv[0]]=kv[1]}});
+apps.push(app)}catch(e){}}}
+apps.sort(function(a,b){return b.ts.localeCompare(a.ts)});
+apps.forEach(function(app){
+csv+='"'+new Date(app.ts).toLocaleString()+'","'+app.id+'","'+app.nick+'","'+app.power+'","'+app.kp+'","'+app.vip+'"\n'});
+dl("lions2453-apps.csv","text/csv",csv)}
+function exportJSON(){
+var data=[],i;
+for(i in localStorage){
+if(i.startsWith("app_")){
+try{
+var d=localStorage[i],p=d.split("\n"),app={timestamp:i.slice(4)};
+p.forEach(function(l){
+if(l.includes(": ")){var kv=l.split(": ");app[kv[0].toLowerCase().replace(/ /g,"_")]=kv[1]}});
+data.push(app)}catch(e){}}}
+data.sort(function(a,b){return b.timestamp.localeCompare(a.timestamp)});
+dl("lions2453-apps.json","application/json",JSON.stringify(data,null,2))}
+function dl(name,type,content){
+var blob=new Blob([content],{type:type}),url=URL.createObjectURL(blob),a=document.createElement("a");
+a.href=url;a.download=name;a.click();URL.revokeObjectURL(url)}
+if(sessionStorage.getItem("lions_admin_logged")){show()}
+</script>
+</body>
+</html>
