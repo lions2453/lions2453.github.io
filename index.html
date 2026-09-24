@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'; connect-src https://formsubmit.co">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'; connect-src https://wxhzhxvczttgxqgmmtln.supabase.co">
 <meta name="referrer" content="no-referrer">
 <title>LIONS 2453 – Göç Başvurusu / Migration</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -68,7 +68,6 @@ main{align-self:center;padding:36px clamp(20px,4vw,72px) 60px 0;max-width:720px;
 }
 @media(min-width:1600px){body{font-size:19px}main{max-width:820px}}
 </style>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 <canvas id="fx" aria-hidden="true"></canvas>
@@ -81,7 +80,6 @@ main{align-self:center;padding:36px clamp(20px,4vw,72px) 60px 0;max-width:720px;
 <section class="card">
 <h2 data-i="ft" id="ft"></h2>
 <form id="f" novalidate autocomplete="off">
-<div class="hp"><label>Web <input id="web" tabindex="-1" autocomplete="off"></label></div>
 
 <div id="s1">
 <label for="pid" data-i="id"></label><input id="pid" inputmode="numeric" maxlength="12">
@@ -107,16 +105,17 @@ main{align-self:center;padding:36px clamp(20px,4vw,72px) 60px 0;max-width:720px;
 <label for="he" data-i="heal"></label><input id="he" inputmode="numeric" maxlength="5">
 <label for="un" data-i="uni"></label><input id="un" inputmode="numeric" maxlength="5">
 <div class="tot"><span data-i="stot"></span> <b id="st">0</b><span class="warn" id="sw"></span></div>
-<div class="err" id="err" role="alert"></div>
 <div class="btns"><button type="button" class="btn g" id="bk" data-i="prev"></button><button type="submit" class="btn" id="sendb" data-i="send"></button></div>
 </div>
+<div class="err" id="err" role="alert"></div>
 </form>
 
 <div id="done" hidden>
 <h2 data-i="dt" id="dt"></h2>
 <p data-i="dp" id="dp"></p>
 <pre id="sum"></pre>
-<div class="btns" id="dbtn1"><a class="btn" id="ml" href="#" target="_top" rel="noopener noreferrer" data-i="mail"></a></div>
+<div class="btns" id="dbtn1" hidden><a class="btn" id="ml" href="#" target="_top" rel="noopener noreferrer" data-i="mail"></a></div>
+<div class="btns" id="dbtn3" hidden><button type="button" class="btn" id="rty" data-i="retry"></button></div>
 <div class="btns" id="dbtn2"><button type="button" class="btn g" id="cp" data-i="copy"></button></div>
 <p class="hint" data-i="att" id="at"></p>
 <p class="hint" id="why"></p>
@@ -129,11 +128,11 @@ main{align-self:center;padding:36px clamp(20px,4vw,72px) 60px 0;max-width:720px;
 <script>
 (function(){
 "use strict";
-var TO="eren11karablt@gmail.com";
-var T={tr:{sub:"KRALLIK 2453 · GÖÇ BAŞVURUSU",rt:"Krallık Kuralları",r1:"Haftalık barbar kalesi kesmek zorunludur.",r2:"Altın kafa sayısı belirlenen sınırı aşılmayacaktır.",r3:"MGE puanı belirlenen sınırı aşılmayacaktır.",ft:"Göç Başvuru Formu",id:"Oyuncu ID",nick:"Kullanıcı adı",power:"Güç (Power)",kp:"Öldürme Puanı (Kill Points)",vip:"VIP seviyesi",bud:"Kristal bütçesi (US$)",budh:"0 – 1100 arası bir değer girin.",dkp:"Hedef minimum DKP",wa1:"Hesap sahibi WhatsApp",wa2:"Pilot WhatsApp (isteğe bağlı)",next:"İleri",prev:"Geri",shot:"Kaynak ve hız artırıcı ekran görüntülerinizi hazır tutun, istenirse WhatsApp'tan iletmeniz gerekecek.",food:"Yiyecek",wood:"Odun",stone:"Taş",gold:"Altın",rtot:"Toplam kaynak (FWSG):",rlow:"Kaynağınız 12B'nin altında, bu biraz düşük.",train:"Eğitim hızlandırma (gün)",heal:"İyileştirme hızlandırma (gün)",uni:"Evrensel hızlandırma (gün)",stot:"Toplam hız artırıcı (İyileştirme + Evrensel):",slow:"Hız artırıcınız 365 günün altında, bu biraz düşük.",agree:"Krallık kurallarını okudum ve kabul ediyorum.",send:"Başvuruyu Gönder",dt:"Başvurunuz hazır",dp:"E-postayı açıp göndermeniz yeterli. Açılmazsa özeti kopyalayıp adresine iletebilirsiniz.",mail:"E-postayı Aç",copy:"Özeti Kopyala",copied:"Kopyalandı",att:"Ekran görüntülerini e-postaya eklemeyi unutmayın.",e:"Lütfen şu alanı kontrol edin: ",eagree:"Kuralları kabul etmelisiniz.",m:"M",b:"B"},
-en:{sub:"KINGDOM 2453 · MIGRATION REQUEST",rt:"Kingdom Rules",r1:"Killing a barbarian fort every week is mandatory.",r2:"Golden head count must not exceed the set limit.",r3:"MGE points must not exceed the set limit.",ft:"Immigration Request Form",id:"Player ID",nick:"Nickname",power:"Power",kp:"Kill Points",vip:"VIP level",bud:"Crystal budget (US$)",budh:"Enter a value from 0 to 1100.",dkp:"Target minimum DKP",wa1:"Owner WhatsApp",wa2:"Pilot WhatsApp (optional)",next:"Next",prev:"Previous",shot:"Keep your resource and speedup screenshots ready; you may be asked to send them via WhatsApp.",food:"Food",wood:"Wood",stone:"Stone",gold:"Gold",rtot:"Resources total (FWSG):",rlow:"Your resources are under 12B, that's a bit low.",train:"Training speedups (days)",heal:"Healing speedups (days)",uni:"Universal speedups (days)",stot:"Speedups total (Healing + Universal):",slow:"Your speedups are under 365 days, that's a bit low.",agree:"I have read and accept the kingdom rules.",send:"Submit Request",dt:"Your request is ready",dp:"Just open the email and send it. If it does not open, copy the summary and send it to the address.",mail:"Open Email",copy:"Copy Summary",copied:"Copied",att:"Remember to attach your screenshots to the email.",e:"Please check this field: ",eagree:"You must accept the rules.",m:"M",b:"B"}};
-T.tr.sending="Gönderiliyor…";T.tr.sent="Başvurunuz gönderildi";T.tr.sentp="Başvurunuz krallık yetkililerine ulaştı. Ekran görüntülerinizi hazır tutun, istenirse WhatsApp'tan iletebilirsiniz.";T.tr.fail="Başvuru otomatik gönderilemedi";T.tr.failp="Bağlantı sorunu oldu. E-postayı açıp gönderin ya da özeti kopyalayıp adrese iletin.";
-T.en.sending="Sending…";T.en.sent="Your request was sent";T.en.sentp="Your request reached the kingdom officers. Keep your screenshots ready; you can send them via WhatsApp if asked.";T.en.fail="Could not send automatically";T.en.failp="There was a connection problem. Open the email and send it, or copy the summary and send it to the address.";
+
+var T={tr:{sub:"KRALLIK 2453 · GÖÇ BAŞVURUSU",rt:"Krallık Kuralları",r1:"Haftalık barbar kalesi kesmek zorunludur.",r2:"Altın kafa sayısı belirlenen sınırı aşılmayacaktır.",r3:"MGE puanı belirlenen sınırı aşılmayacaktır.",ft:"Göç Başvuru Formu",id:"Oyuncu ID",nick:"Kullanıcı adı",power:"Güç (Power)",kp:"Öldürme Puanı (Kill Points)",vip:"VIP seviyesi",bud:"Kristal bütçesi (US$)",budh:"0 – 1100 arası bir değer girin.",dkp:"Hedef minimum DKP",wa1:"Hesap sahibi WhatsApp",wa2:"Pilot WhatsApp (isteğe bağlı)",next:"İleri",prev:"Geri",shot:"Kaynak ve hız artırıcı ekran görüntülerinizi hazır tutun, istenirse WhatsApp'tan iletmeniz gerekecek.",food:"Yiyecek",wood:"Odun",stone:"Taş",gold:"Altın",rtot:"Toplam kaynak (FWSG):",rlow:"Kaynağınız 12B'nin altında, bu biraz düşük.",train:"Eğitim hızlandırma (gün)",heal:"İyileştirme hızlandırma (gün)",uni:"Evrensel hızlandırma (gün)",stot:"Toplam hız artırıcı (İyileştirme + Evrensel):",slow:"Hız artırıcınız 365 günün altında, bu biraz düşük.",agree:"Krallık kurallarını okudum ve kabul ediyorum.",send:"Başvuruyu Gönder",dt:"Başvurunuz hazır",dp:"",mail:"E-postayı Aç",copy:"Özeti Kopyala",copied:"Kopyalandı",att:"Ekran görüntülerinizi hazır tutun.",e:"Lütfen şu alanı kontrol edin: ",eagree:"Kuralları kabul etmelisiniz.",m:"M",b:"B"},
+en:{sub:"KINGDOM 2453 · MIGRATION REQUEST",rt:"Kingdom Rules",r1:"Killing a barbarian fort every week is mandatory.",r2:"Golden head count must not exceed the set limit.",r3:"MGE points must not exceed the set limit.",ft:"Immigration Request Form",id:"Player ID",nick:"Nickname",power:"Power",kp:"Kill Points",vip:"VIP level",bud:"Crystal budget (US$)",budh:"Enter a value from 0 to 1100.",dkp:"Target minimum DKP",wa1:"Owner WhatsApp",wa2:"Pilot WhatsApp (optional)",next:"Next",prev:"Previous",shot:"Keep your resource and speedup screenshots ready; you may be asked to send them via WhatsApp.",food:"Food",wood:"Wood",stone:"Stone",gold:"Gold",rtot:"Resources total (FWSG):",rlow:"Your resources are under 12B, that's a bit low.",train:"Training speedups (days)",heal:"Healing speedups (days)",uni:"Universal speedups (days)",stot:"Speedups total (Healing + Universal):",slow:"Your speedups are under 365 days, that's a bit low.",agree:"I have read and accept the kingdom rules.",send:"Submit Request",dt:"Your request is ready",dp:"",mail:"Open Email",copy:"Copy Summary",copied:"Copied",att:"Keep your screenshots ready.",e:"Please check this field: ",eagree:"You must accept the rules.",m:"M",b:"B"}};
+T.tr.retry="Tekrar dene";T.en.retry="Try again";T.tr.sending="Gönderiliyor…";T.tr.sent="Başvurunuz gönderildi";T.tr.sentp="Başvurunuz krallık yetkililerine ulaştı. Ekran görüntülerinizi hazır tutun, istenirse WhatsApp'tan iletebilirsiniz.";T.tr.fail="Başvuru otomatik gönderilemedi";T.tr.failp="Başvuru kaydedilemedi. Tekrar deneyin ya da özeti kopyalayıp krallık yetkilisine WhatsApp'tan gönderin.";
+T.en.sending="Sending…";T.en.sent="Your request was sent";T.en.sentp="Your request reached the kingdom officers. Keep your screenshots ready; you can send them via WhatsApp if asked.";T.en.fail="Could not send automatically";T.en.failp="Your request could not be saved. Try again, or copy the summary and send it to a kingdom officer on WhatsApp.";
 var L="tr",$=function(i){return document.getElementById(i)};
 function tx(){document.documentElement.lang=L;document.querySelectorAll("[data-i]").forEach(function(e){e.textContent=T[L][e.getAttribute("data-i")]||""});
 ["btr","ben"].forEach(function(b){$(b).setAttribute("aria-pressed",String(b==="b"+L))});calc()}
@@ -163,22 +162,23 @@ $("nx").onclick=function(){if(v1()){$("s1").hidden=true;$("s2").hidden=false;win
 $("bk").onclick=function(){$("s2").hidden=true;$("s1").hidden=false};
 
 $("f").addEventListener("submit",function(ev){ev.preventDefault();
-if($("web").value)return; /* bot trap */
 if(!v1()){$("s2").hidden=true;$("s1").hidden=false;return}
 var g=function(i){return clean($(i).value,30)};
 var lines=["=== LIONS 2453 – MIGRATION REQUEST ===","ID: "+g("pid"),"Nickname: "+g("nick"),"Power: "+g("power"),"Kill Points: "+g("kp"),"VIP: "+g("vip"),"Crystal budget (US$): "+g("budget"),"Target min DKP: "+g("dkp"),"Owner WhatsApp: "+g("wa1"),"Pilot WhatsApp: "+(g("wa2")||"-"),""];
 RK.forEach(function(k){lines.push(k[0].toUpperCase()+k.slice(1)+": "+(n(k)||0)+" "+$(k+"u").value)});
-lines.push("Resources total: "+$("rt").textContent+" B","Training days: "+n("tr"),"Healing days: "+n("he"),"Universal days: "+n("un"),"Speedups total: "+$("st").textContent+" days","","(Attach resource + speedup screenshots)");
+lines.push("Resources total: "+$("rt").textContent+" B","Training days: "+n("tr"),"Healing days: "+n("he"),"Universal days: "+n("un"),"Speedups total: "+$("st").textContent+" days");
 var body=lines.join("\n");$("sum").textContent=body;
-$("ml").href="mailto:"+TO+"?subject="+encodeURIComponent("LIONS 2453 Migration – "+g("nick")+" ("+g("pid")+")")+"&body="+encodeURIComponent(body);
-var ts=new Date().toISOString(),g2=g,lines=["=== LIONS 2453 – MIGRATION REQUEST ===",ts,"ID: "+g2("pid"),"Nickname: "+g2("nick"),"Power: "+g2("power"),"Kill Points: "+g2("kp"),"VIP: "+g2("vip"),"Crystal budget (US$): "+g2("budget"),"Target min DKP: "+g2("dkp"),"Owner WhatsApp: "+g2("wa1"),"Pilot WhatsApp: "+(g2("wa2")||"-"),""];
-RK.forEach(function(k){lines.push(k[0].toUpperCase()+k.slice(1)+": "+(n(k)||0)+" "+$(k+"u").value)});
-lines.push("Resources total: "+$("rt").textContent+" B","Training days: "+n("tr"),"Healing days: "+n("he"),"Universal days: "+n("un"),"Speedups total: "+$("st").textContent+" days","","(Send screenshots to owner WhatsApp)");
-var body=lines.join("\n");$("sum").textContent=body;
-$("ml").href="mailto:"+TO+"?subject="+encodeURIComponent("LIONS 2453 Migration – "+g2("nick")+" ("+g2("pid")+")")+"&body="+encodeURIComponent(body);
-var sb=supabase.createClient("https://wxhzhxvczttgxqgmmtln.supabase.co","sb_publishable_Mv8LPVt5VAQIE6QL2WyBeQ_fpk2I4JA");
-sb.from("apps").insert([{pid:g2("pid"),nickname:g2("nick"),power:g2("power"),kp:g2("kp"),vip:g2("vip"),budget:g2("budget"),dkp:g2("dkp"),wa1:g2("wa1"),wa2:g2("wa2")||null,food:n("food")+" "+$("foodu").value,wood:n("wood")+" "+$("woodu").value,stone:n("stone")+" "+$("stoneu").value,gold:n("gold")+" "+$("goldu").value,train:n("tr"),heal:n("he"),uni:n("un")}]).then(function(){var ok=true}).catch(function(){var ok=false});try{localStorage.setItem("app_"+ts,body)}catch(e){}
-$("f").hidden=true;$("ft").hidden=true;$("done").hidden=false;$("dt").setAttribute("data-i","sent");$("dp").setAttribute("data-i","sentp");["sum","dbtn1","dbtn2","at"].forEach(function(i){$(i).hidden=false});$("why").textContent="";tx();window.scrollTo({top:0,behavior:"smooth"})});
+var row={pid:g("pid"),nickname:g("nick"),power:g("power"),kp:g("kp"),vip:g("vip"),budget:g("budget"),dkp:g("dkp"),wa1:g("wa1"),wa2:g("wa2")||"-",train:String(n("tr")),heal:String(n("he")),uni:String(n("un"))};
+RK.forEach(function(k){row[k]=(n(k)||0)+" "+$(k+"u").value});
+var sb=$("sendb");sb.disabled=true;sb.textContent=T[L].sending;
+function fin(ok,why){sb.disabled=false;sb.textContent=T[L].send;$("f").hidden=true;$("ft").hidden=true;$("done").hidden=false;
+$("dt").setAttribute("data-i",ok?"sent":"fail");$("dp").setAttribute("data-i",ok?"sentp":"failp");
+["sum","dbtn2","dbtn3","at"].forEach(function(i){$(i).hidden=ok});tx();$("why").textContent=ok?"":(why?"("+why+")":"");window.scrollTo({top:0,behavior:"smooth"})}
+var ac=new AbortController(),tm=setTimeout(function(){ac.abort()},15000);
+fetch("https://wxhzhxvczttgxqgmmtln.supabase.co/rest/v1/apps",{method:"POST",headers:{"apikey":"sb_publishable_Mv8LPVt5VAQIE6QL2WyBeQ_fpk2I4JA","Content-Type":"application/json","Prefer":"return=minimal"},body:JSON.stringify(row),signal:ac.signal})
+.then(function(r){clearTimeout(tm);if(r.ok){fin(true)}else{r.text().then(function(t){fin(false,"HTTP "+r.status+" "+t.slice(0,140))})}})
+.catch(function(e){clearTimeout(tm);fin(false,String(e&&e.message||e).slice(0,100))})});
+$("rty").onclick=function(){$("done").hidden=true;$("f").hidden=false;$("ft").hidden=false;$("s1").hidden=true;$("s2").hidden=false;$("f").requestSubmit()};
 $("cp").onclick=function(){var t=$("sum").textContent,done=function(){$("cp").textContent=T[L].copied};
 try{navigator.clipboard.writeText(t).then(done,fb)}catch(e){fb()}
 function fb(){var a=document.createElement("textarea");a.value=t;document.body.appendChild(a);a.select();try{document.execCommand("copy");done()}catch(e){}a.remove()}};
